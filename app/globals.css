@@ -1,0 +1,97 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --color-primary: #ad2c00;
+  --color-on-surface: #1b1b1b;
+  --color-surface: #f9f9f9;
+}
+
+* {
+  border-radius: 0 !important;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+html,
+body {
+  background-color: #f9f9f9;
+  color: #1b1b1b;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  /* `clip` (not `hidden`) — hidden creates a scroll container that breaks
+     position: sticky on descendants like the header. clip prevents horizontal
+     overflow from parallax transforms without establishing a scroll container. */
+  overflow-x: clip;
+}
+
+::selection {
+  background: #ad2c00;
+  color: #ffffff;
+}
+
+/* Film grain — used on imagery & hero blocks */
+.film-grain {
+  position: relative;
+}
+.film-grain::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.12'/%3E%3C/svg%3E");
+  z-index: 10;
+}
+
+/* Fixed full-viewport grain overlay */
+.noise-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 60;
+  opacity: 0.045;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* Solid brutalist offset (pseudo-shadow) */
+.offset-shadow {
+  box-shadow: 16px 16px 0 0 #ad2c00;
+}
+.offset-shadow-dark {
+  box-shadow: 8px 8px 0 0 #1b1b1b;
+}
+
+/* Hard-line inputs */
+.hard-line {
+  border: 0;
+  border-bottom: 4px solid #1b1b1b;
+  background: transparent;
+  outline: none !important;
+  box-shadow: none !important;
+}
+.hard-line:focus {
+  border-bottom-color: #ad2c00;
+}
+
+/* Transition-none everywhere by policy (instant hover inversion) */
+a,
+button {
+  transition: none !important;
+}
+
+/* Editorial image treatment */
+.editorial {
+  filter: grayscale(1) contrast(1.2) brightness(0.85);
+}
+.editorial-hover:hover img {
+  filter: grayscale(0) contrast(1.05) brightness(1);
+}

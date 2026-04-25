@@ -1,0 +1,65 @@
+import type { Config } from "tailwindcss";
+
+const config: Config = {
+  content: [
+    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./components/**/*.{js,ts,jsx,tsx,mdx}",
+  ],
+  theme: {
+    extend: {
+      colors: {
+        primary: "#ad2c00",
+        "primary-container": "#d83900",
+        "primary-fixed": "#ffdbd1",
+        "primary-fixed-dim": "#ffb5a0",
+        "on-primary": "#ffffff",
+        "on-primary-fixed": "#3b0900",
+        "on-primary-fixed-variant": "#872000",
+        secondary: "#a83918",
+        "secondary-container": "#ff7852",
+        "on-secondary": "#ffffff",
+        tertiary: "#005daa",
+        "on-tertiary": "#ffffff",
+        background: "#f9f9f9",
+        "on-background": "#1b1b1b",
+        surface: "#f9f9f9",
+        "surface-bright": "#f9f9f9",
+        "surface-dim": "#dadada",
+        "surface-variant": "#e2e2e2",
+        "surface-container-lowest": "#ffffff",
+        "surface-container-low": "#f3f3f3",
+        "surface-container": "#eeeeee",
+        "surface-container-high": "#e8e8e8",
+        "surface-container-highest": "#e2e2e2",
+        "on-surface": "#1b1b1b",
+        "on-surface-variant": "#5d4038",
+        outline: "#926f66",
+        "outline-variant": "#e7bdb2",
+        "inverse-surface": "#303030",
+        "inverse-on-surface": "#f1f1f1",
+        "inverse-primary": "#ffb5a0",
+        error: "#ba1a1a",
+        "on-error": "#ffffff",
+      },
+      borderRadius: {
+        DEFAULT: "0px",
+        none: "0px",
+        sm: "0px",
+        md: "0px",
+        lg: "0px",
+        xl: "0px",
+        "2xl": "0px",
+        "3xl": "0px",
+        full: "0px",
+      },
+      fontFamily: {
+        headline: ["var(--font-newsreader)", "serif"],
+        body: ["var(--font-work-sans)", "sans-serif"],
+        label: ["var(--font-space-grotesk)", "sans-serif"],
+      },
+    },
+  },
+  plugins: [],
+};
+
+export default config;

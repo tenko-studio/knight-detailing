@@ -1,0 +1,17 @@
+# Security headers, applied to every response
+/*
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=()
+  Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+
+# Long-cache hashed Next.js build assets
+/_next/static/*
+  Cache-Control: public, max-age=31536000, immutable
+
+# Long-cache fonts and static media
+/fonts/*
+  Cache-Control: public, max-age=31536000, immutable
+/images/*
+  Cache-Control: public, max-age=31536000, immutable

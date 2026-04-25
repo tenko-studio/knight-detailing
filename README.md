@@ -53,8 +53,11 @@ No CMS, no database. Content is colocated with the renderer (`lib/journal.ts`, p
 │   └── journal.ts                # Journal/news data + helpers (getAllPosts, getPostBySlug, …)
 │
 ├── public/                       # Static assets (favicon, etc.)
+│   └── _headers                  # Cloudflare Pages security + cache headers
 ├── tailwind.config.ts            # MD3 color tokens, custom font families, zero border-radius
 ├── next.config.mjs               # Image remote patterns
+├── wrangler.toml                 # Cloudflare Pages build configuration
+├── .dev.vars.example             # Template for local Pages env vars
 └── tsconfig.json
 ```
 
@@ -132,13 +135,51 @@ Adding a post is a single object in the `POSTS` array. The route `app/journal/[s
 
 ## Deployment
 
+### Vercel
+
 The project is a stock Next.js 14 App Router app and deploys cleanly to Vercel:
 
 ```bash
 vercel
 ```
 
-For self-hosting, run `npm run build && npm run start` behind a reverse proxy. The build emits no edge runtime requirements and no custom server.
+### Cloudflare Pages
+
+The repo ships with a Cloudflare Pages configuration via the official [`@cloudflare/next-on-pages`](https://github.com/cloudflare/next-on-pages) adapter. React Server Components, `next/image` with remote hosts, and statically prerendered routes are all preserved.
+
+| File                  | Role                                                      |
+| --------------------- | --------------------------------------------------------- |
+| `wrangler.toml`       | Pages project config (compat date, `nodejs_compat` flag)  |
+| `public/_headers`     | Security headers + long-cache rules for hashed assets     |
+| `.dev.vars.example`   | Template for local environment variables                  |
+
+**One-shot deploy from your machine:**
+
+```bash
+npm install
+npx wrangler login            # one-time, opens browser
+npm run pages:deploy          # builds with next-on-pages, then deploys
+```
+
+**Local production preview** (runs the built output through Wrangler, mirroring the Pages runtime):
+
+```bash
+npm run pages:preview
+```
+
+**Deploy from the Cloudflare dashboard** — connect the Git repo and set:
+
+- **Framework preset:** Next.js
+- **Build command:** `npx @cloudflare/next-on-pages@1`
+- **Build output directory:** `.vercel/output/static`
+- **Environment variables:** `NODE_VERSION=20`
+- **Compatibility flags (Production + Preview):** `nodejs_compat`
+
+Secrets (e.g. contact-form API keys) go in **Settings → Environment variables**; copy `.dev.vars.example` to `.dev.vars` for local-only values.
+
+### Self-hosting
+
+For a traditional Node deployment, run `npm run build && npm run start` behind a reverse proxy. The build emits no edge runtime requirements and no custom server.
 
 ---
 
